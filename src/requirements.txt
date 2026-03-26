@@ -1,2 +1,2 @@
 # Web frameworks
-Django==1.11.0
+Django==6.0.3          
