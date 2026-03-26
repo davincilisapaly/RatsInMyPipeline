@@ -3,7 +3,7 @@ name: Insecure CI
 on:
   # Dangerous trigger for PRs from forks (can be abused)
   pull_request_target:
-    branches: [ main ]
+    branches: [ main ] 
 
   # Scheduled runs with broad access
   schedule:
