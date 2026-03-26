@@ -1,54 +1,21 @@
-name: Insecure CI
+name: someInfraCode
 
 on:
-  # Dangerous trigger for PRs from forks (can be abused)
-  pull_request_target:
-    branches: [ main ] 
+  push:
+    branches: [ main ]
 
-  # Scheduled runs with broad access
-  schedule:
-    - cron: "0 * * * *"  # every hour
+# Lock down default GITHUB_TOKEN so we don't trigger excessive-permissions
+permissions: {}
 
 jobs:
-  build:
-    # Broad runner, no hardening
+  ci:
     runs-on: ubuntu-latest
 
-    # Overly broad permissions (zizmor should complain)
-    permissions: write-all
-
     steps:
-      # 1) Untrusted fork checkout pattern (UNSAFE_CODE_CHECKOUT / similar)
-      - name: Checkout untrusted PR code
-        uses: actions/checkout@v4       # tag only, not pinned to a SHA
-        with:
-          # checkout arbitrary fork/branch from the PR
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
+      # Single vulnerability: unpinned action (tag instead of commit SHA)
+      - name: Set up Node.js (unpinned)
+        uses: actions/setup-node@v4   # real action, but only pinned to a tag
 
-      # 2) Hardcoded secret (HARDCODED_SECRET)
-      - name: Hardcoded AWS credentials
-        env:
-          AWS_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
-          AWS_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-        run: |
-          echo "Using AWS key $AWS_ACCESS_KEY_ID"
-
-      # 3) Script injection style interpolation (SCRIPT_INJECTION)
-      - name: Script injection risk
-        run: |
-          echo "Actor is ${{ github.actor }}"
-          echo "Head ref is ${{ github.head_ref }}"
-
-  docker-job:
-    runs-on: ubuntu-latest
-
-    # Example of risky host networking (HOST_NETWORKING)
-    container:
-      image: node:18
-      options: --network host
-
-    steps:
-      - name: Do something in privileged network context
-        run: |
-          echo "Running with host networking, risky configuration"  
+      # Safe, non-vulnerable step
+      - name: Build
+        run: echo "Build step running"

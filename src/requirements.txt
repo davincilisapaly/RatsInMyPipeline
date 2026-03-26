@@ -1,2 +1,2 @@
 # Web frameworks
-Django==6.0.3.          # multiple CVEs in old Django 1.x
+Django==6.0.3          
