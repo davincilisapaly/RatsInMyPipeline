@@ -1,0 +1,41 @@
+name: build
+on:
+  push
+  
+jobs:
+  security-scanning:
+    uses: DavinciLisapaly/InfrastructureDemo/.github/workflows/security-scans.yml@main
+      
+  build-and-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      checks: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (dummy)
+        run: 
+
+  build-and-push-image:
+    needs: [build-and-test, security-scanning]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (dummy)
+        run: 
+                 
+  deploy:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+        packages: write
+
+      steps:
+        - uses: actions/checkout@v4
+        - name: Build (dummy)
+          run: 

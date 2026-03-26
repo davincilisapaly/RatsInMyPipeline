@@ -1,0 +1,23 @@
+# Web frameworks
+Django==1.11.0          # multiple CVEs in old Django 1.x
+Flask==0.5              # known DoS-related issues (e.g. PYSEC-2019-179)
+Werkzeug==0.10.1        # old Werkzeug with various issues
+Jinja2==2.7.2           # old template engine with known bugs
+
+# HTTP / parsing
+requests==2.18.0        # old requests with security advisories
+urllib3==1.22           # insecure TLS / header handling issues
+lxml==4.6.0             # multiple XML parsing CVEs (e.g. PYSEC-2021-19)
+
+# Auth / crypto
+PyJWT==1.5.0            # vulnerable token verification behavior
+cryptography==1.2.3     # outdated crypto primitives / CVEs
+
+# Serialization / misc
+PyYAML==3.10            # unsafe load() RCE issues
+pillow==3.0.0           # image parsing vulnerabilities
+sqlalchemy==1.0.0       # old ORM with various bugs
+
+# CLI / tooling
+pipenv==2021.11.23      # version affected by CVE-2022-21668 (requirements parsing)
+setuptools==28.0.0      # very old packaging tooling
