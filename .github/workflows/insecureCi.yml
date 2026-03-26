@@ -40,12 +40,6 @@ jobs:
           echo "Actor is ${{ github.actor }}"
           echo "Head ref is ${{ github.head_ref }}"
 
-      # 4) Use a third-party action with a floating tag (UNPINNED_ACTION)
-      - name: Use third-party action with floating tag
-        uses: someuser/some-insecure-action@main
-        with:
-          some-input: "value"
-
   docker-job:
     runs-on: ubuntu-latest
 
