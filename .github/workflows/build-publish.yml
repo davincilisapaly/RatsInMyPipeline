@@ -23,7 +23,7 @@ jobs:
 
   build-and-push-image:
     needs: [build-and-test, security-scanning]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
     permissions:
       contents: write
       packages: write
