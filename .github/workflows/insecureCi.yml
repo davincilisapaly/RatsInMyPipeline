@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main ]
 
-# Lock down default GITHUB_TOKEN so we don't trigger excessive-permissions
 permissions: {}
 
 jobs:
@@ -12,10 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Single vulnerability: unpinned action (tag instead of commit SHA)
-      - name: Set up Node.js (unpinned)
-        uses: actions/setup-node@v4   # real action, but only pinned to a tag
+      - name: Set up Node.js 
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
 
-      # Safe, non-vulnerable step
       - name: Build
         run: echo "Build step running"
