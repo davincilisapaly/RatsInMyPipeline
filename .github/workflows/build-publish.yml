@@ -22,7 +22,7 @@ jobs:
         run: 
 
   build-and-push-image:
-    needs: [build-and-test, security-scanning]
+    needs: [build-and-test]
     runs-on: ubuntu-latest 
     permissions:
       contents: write 
@@ -34,7 +34,7 @@ jobs:
         run: 
                  
   deploy:
-      needs: build-and-push-image
+      needs: [build-and-push-image, security-scanning]
       runs-on: ubuntu-latest
       permissions:
         contents: write
