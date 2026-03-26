@@ -5,6 +5,10 @@ on:
 jobs:
   security-scanning:
     uses: DavinciLisapaly/InfrastructureDemo/.github/workflows/security-scans.yml@main
+    permissions:
+      security-events: write
+      contents: read # only needed for private or internal repos
+      actions: read # only needed for private or internal repos
       
   build-and-test:
     runs-on: ubuntu-latest
